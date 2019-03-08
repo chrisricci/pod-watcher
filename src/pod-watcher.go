@@ -27,14 +27,15 @@ func main() {
 
 	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: func(obj interface{}) {
-			// "k8s.io/apimachinery/pkg/apis/meta/v1" provides an Object
-			// interface that allows us to get metadata easily
+			// The pod won't have an IP at the time of the initial add event
+			//  When an IP is assigned to the new pod it will trigger an update event
 			mObj := obj.(*v1.Pod)
 			log.Printf("New Pod Added: %s %s", mObj.Name, mObj.Status.PodIP)
 		},
 		UpdateFunc: func(old interface{}, new interface{}) {
 			mObj := new.(*v1.Pod)
 			oldObj := old.(*v1.Pod)
+			// Check if the update event assigned an IP to the pod.  If so, log it
 			if mObj.Status.PodIP != oldObj.Status.PodIP {
 				log.Printf("Pod Updated: %s %s", mObj.Name, mObj.Status.PodIP)
 			}
