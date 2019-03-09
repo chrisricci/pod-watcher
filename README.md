@@ -1,5 +1,5 @@
 # Simple Pod Watcher
-This is for a PoC using the client-go kubernetes client.  The service will watch as pods are added or deleted and will print the pod name along with it's assigned IP Address
+This is simple example using the client-go kubernetes client.  The service will watch as pods are added or deleted and will print the pod name along with it's assigned IP Address
 
 ## Running Pod Watcher
 You can run the pod watcher either in-cluster or out-of-cluster.
